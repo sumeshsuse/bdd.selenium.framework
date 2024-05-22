@@ -1,0 +1,23 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: apt-get update
+          apt-get upgrade
+          apt install openjdk-17-jdk openjdk-17-jre
+          java -version
+  displayName: 'Install Java'
+
+- script: |
+    sudo apt update
+    sudo apt install maven -y
+    mvn -version
+  displayName: 'Install mvn'
