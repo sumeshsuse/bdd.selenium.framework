@@ -21,3 +21,10 @@ steps:
     sudo apt install maven -y
     mvn -version
   displayName: 'Install mvn'
+
+- task: Maven@3
+  displayName: 'Maven pom.xml'
+  inputs:
+    goals: test
+    options: '-Dcucumber.filter.tags="@ForgotPassword" -Dbrowser=Firefox'
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
