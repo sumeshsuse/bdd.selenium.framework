@@ -7,24 +7,16 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
-- script: apt-get update
-          apt-get upgrade
-          apt install openjdk-17-jdk openjdk-17-jre
-          java -version
-  displayName: 'Install Java'
-
-- script: |
-    sudo apt update
-    sudo apt install maven -y
-    mvn -version
-  displayName: 'Install mvn'
-
 - task: Maven@3
-  displayName: 'Maven pom.xml'
   inputs:
-    goals: test
-    options: '-Dcucumber.filter.tags="@ForgotPassword" -Dbrowser=Firefox'
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'package'
